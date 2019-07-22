@@ -10,7 +10,6 @@ data = pd.read_csv(path, header=None, names=['Size', 'Bedrooms', 'Price'])
 
 print(data.head())
 
-
 # When observing the data we see that there are features with very different orders
 # of magnitude. Thus applying feature scaling will help our code to converge faster.
 
@@ -23,7 +22,6 @@ data = (data - data.mean()) / data.std()
 data['Ones'] = 1
 data = data[['Ones', 'Size', 'Bedrooms', 'Price']]
 print(data.head())
-
 
 # Since we did the gradient descent with vectorized operations we can reuse the code
 # from the linear regression code, and it will work with the multivariate one.
@@ -55,7 +53,7 @@ def gradient(X, y, theta, alpha, iterations):
         # Initialize loop over number of features. And compute the new values for theta.
         for j in range(features):
             term = np.multiply(diff, X[:, j])
-            temp[0, j] = theta[0, j] - (alpha/len(X)) * np.sum(term)
+            temp[0, j] = theta[0, j] - (alpha / len(X)) * np.sum(term)
 
         theta = temp
         cost[i] = cost_function(X, y, theta)
@@ -64,8 +62,8 @@ def gradient(X, y, theta, alpha, iterations):
 
 
 cols = data.shape[1]
-X2 = data.iloc[:, 0:cols-1]
-y2 = data.iloc[:, cols-1:cols]
+X2 = data.iloc[:, 0:cols - 1]
+y2 = data.iloc[:, cols - 1:cols]
 
 X2 = np.matrix(X2)
 y2 = np.matrix(y2)

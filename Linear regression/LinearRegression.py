@@ -1,4 +1,4 @@
-#from sklearn import linear_model
+from sklearn import linear_model
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -31,8 +31,8 @@ data = data[['ones', 'Population', 'Profit']]
 
 # Defining the variables for our Linear Regression.
 cols = data.shape[1]
-Xdf = data.iloc[:, 0:cols-1]
-ydf = data.iloc[:, cols-1:cols]
+Xdf = data.iloc[:, 0:cols - 1]
+ydf = data.iloc[:, cols - 1:cols]
 # Defining ydf this way gives us a mx1 vector once we change it into a numpy matrix,
 # if we instead use ydf = data.iloc[:,2], we get a 1xm vector, thus needing to transpose
 #  it when computing the cost and gradient functions. This way we have finally a completely
@@ -71,7 +71,7 @@ def gradient(X, y, theta, alpha, iterations):
         # Initialize loop over number of features. And compute the new values for theta.
         for j in range(features):
             term = np.multiply(diff, X[:, j])
-            temp[0, j] = theta[0, j] - (alpha/len(X)) * np.sum(term)
+            temp[0, j] = theta[0, j] - (alpha / len(X)) * np.sum(term)
 
         theta = temp
         cost[i] = cost_function(X, y, theta)
@@ -95,7 +95,6 @@ print(cost_function(I, y, g))
 x = np.linspace(data.Population.min(), data.Population.max(), 100)
 f = g[0, 0] + (g[0, 1] * x)
 
-
 fig, ax = plt.subplots(figsize=(12, 8))
 ax.plot(x, f, 'r', label='Prediction')
 ax.scatter(data.Population, data.Profit, label='Traning Data')
@@ -112,12 +111,10 @@ ax.set_ylabel('Cost')
 ax.set_title('Error vs. Training Epoch')
 plt.show()
 
-
 # -----------------------------------------------------------------------------------
 
 # Instead of writing these functions ourselves we could have simply used
 # the commonly used python library: Scikit-learn. Let's see how this would look like:
-
 
 model = linear_model.LinearRegression()
 fitt = model.fit(I, y)
